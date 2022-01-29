@@ -11,7 +11,7 @@ const out = document.querySelector('.calc-screen p');
 const container = document.querySelector('.calc-history');
 
 function clearAll() {
-    a = ''; // first number and result
+    a = '0'; // first number and result
     b = ''; // second number 
     sign = ''; // знак
     finish = false;
@@ -25,9 +25,6 @@ document.querySelector('.buttons').onclick = (event) => {
     if (!event.target.classList.contains('d16')) return;
     // нажата кнопка clearAll ac
     if (event.target.classList.contains('ac')) {
-        a = '0';
-        b = '';
-        sign = '';
         return
     };
 
@@ -35,9 +32,24 @@ document.querySelector('.buttons').onclick = (event) => {
     // получаю нажатую кнопку
     const key = event.target.textContent;
 
-    // если нажата клавиша 0-9 или .    
+    // если нажата клавиша 0-9 или .   
     if (digit.includes(key)) {
-        if (b === '' && sign === '') {
+        if (a.toString().length >= 8) {
+            // console.log(parseInt(a) + 'd');
+            // for (var count = 0; parseInt(a) > 10;) {
+            //     a = a / 10;
+            //     count++;
+            // }
+            // a = a + 'e' + count;
+            while (a.toString().length >= 8)
+
+                a = a.slice(0, -1);
+            // a = Math.floor(a / 10);
+        }
+        if (b.toString().length >= 8) { b = b.slice(0, -1) };
+        if (b === '.') b = '0.';
+        if (sign === '') {
+            // if (b === '' && sign === '') {
             if (a === '0' && key !== '.') a = key; else
                 a += key;
 
@@ -63,20 +75,55 @@ document.querySelector('.buttons').onclick = (event) => {
         sign = key;
         out.textContent = sign;
         console.table(a, b, sign);
-        console.log(a);
+        console.log(a, 'это а и б ', b);
         return;
+    }
+
+    if (key === 'exp') {
+        if (b === '') {
+            a = Math.exp(a);
+            if (a.toString().length > 8) a = a.toFixed(4);
+            out.textContent = a;
+
+            var contExp = document.createElement('p');
+            contExp.classList.add('history-operations');
+            contExp.innerHTML = "ddd";
+            console.log("ss");
+        } else {
+            b = Math.exp(b);
+            out.textContent = b;
+        }
+    }
+
+    if (key === '%') {
+        if (b !== '') {
+
+            if (c !== "") {
+                a = a / 100;
+                out.textContent = a;
+            } else {
+                b = b / 100;
+                out.textContent = b;
+            }
+
+        } else {
+            a = a / 100;
+            out.textContent = a;
+        }
     }
 
     // нажата =
     a = parseFloat(a);
     b = parseFloat(b);
+    if (isNaN(b)) b = 0;
+    if (isNaN(a)) a = 0;
     if (key === '=') {
-        let c = a;
+        var c = a;
         if (b === '') b = a;
+        if (b === '.') b = '0.';
         switch (sign) {
             case "+":
                 a = (+a) + (+b);
-                if (a.toString().length > 8) a = a.toFixed(8);
                 break;
             case "-":
                 a = a - b;
@@ -95,25 +142,28 @@ document.querySelector('.buttons').onclick = (event) => {
                 a = a / b;
                 break;
         }
+        if (isNaN(a) == false && isNaN(b) == false) { a = a.toPrecision(2); b = b.toPrecision(2); };
+        if (a.toString().length > 8) { a = "значение превышено"; };
+
+        if (a > 99999999) { a = "значение превышено"; };
         finish = true;
-        if (isNaN(a)) a = 'ошибка';
-        if (isNaN(b)) b = 'ошибка';
         out.textContent = a;
-        //out.textContent = a.toFixed(2);
         console.table(a, b, sign);
 
         var p = document.createElement('p');
         p.classList.add('history-operations');
 
         if ((a == b && b == 0) || (a == b && b == '')) p.innerHTML = c + '=' + a; else
-            p.innerHTML = c + sign + b + '=' + a;
-        if (a == c && sign == "" && isNaN(b) == false) p.innerHTML = b + '=' + b;
+            if (isNaN(b) == false || isNaN(a) == false)
+                p.innerHTML = c + sign + b + '=' + a;
+        if (a == c && sign == "" && isNaN(b) == false) p.innerHTML = a + '=' + a;
         if (a == c && sign == "" && isNaN(b) !== false) p.innerHTML = a;
+
         container.appendChild(p);
         console.log(c, sign, b, '=', a);
 
-        if (isNaN(a)) a = '0';
-        if (isNaN(b)) b = '';
+        if (isNaN(a) || a == 'значение превышено') a = '0';
+        if (isNaN(b) || a == 'значение превышено') b = '';
     }
 
 }
