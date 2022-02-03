@@ -1,11 +1,8 @@
-let input1 = document.getElementById('x2');
-let input2 = document.getElementById('x');
-let input3 = document.getElementById('free');
-
 document.getElementById('solve-equation').onclick = () => {
+    let input1 = document.getElementById('x2');
     let x2 = +input1.value;
-    let x = +input2.value;
-    let free = +input3.value;
+    let x = +document.getElementById('x').value;
+    let free = +document.getElementById('free').value;
     let discriminant = x * x - 4 * x2 * free;
     let message = '';
 

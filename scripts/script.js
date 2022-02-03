@@ -80,36 +80,23 @@ document.querySelector('.buttons').onclick = (event) => {
     }
 
     if (key === 'exp') {
-        if (b === '') {
-            a = Math.exp(a);
-            if (a.toString().length > 8) a = a.toFixed(4);
-            out.textContent = a;
+        a = Math.exp(a);
+        if (a.toString().length > 8) a = a.toPrecision(2);
+        if (a == Infinity) a = "значение превышено";
+        out.textContent = a;
+    }
 
-            var contExp = document.createElement('p');
-            contExp.classList.add('history-operations');
-            contExp.innerHTML = "ddd";
-            console.log("ss");
-        } else {
-            b = Math.exp(b);
-            out.textContent = b;
-        }
+    if (key === '√') {
+        a = Math.sqrt(a);
+        if (a.toString().length > 8) a = a.toPrecision(2);
+        if (isNaN(a)) a = "ошибка";
+        out.textContent = a;
     }
 
     if (key === '%') {
-        if (b !== '') {
-
-            if (c !== "") {
-                a = a / 100;
-                out.textContent = a;
-            } else {
-                b = b / 100;
-                out.textContent = b;
-            }
-
-        } else {
-            a = a / 100;
-            out.textContent = a;
-        }
+        a = a / 100;
+        if (a.toString().length > 8) a = a.toPrecision(2);
+        out.textContent = a;
     }
 
     // нажата =
