@@ -3,49 +3,80 @@
 
 <head>
     <meta charset="UTF-8">
-
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="css/d16.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/btn.css">
     <title>Calc</title>
 </head>
 
 <body>
     <div style="display: flex;">
         <div class="calc">
+            <img style="height: 15%;" src="static/2kak_narisovat_pautinu_5.png">
             <div class="calc-screen">
                 <p>0</p>
             </div>
             <div class="buttons">
-                <div class="btn ac bg-grey">ac</div>
-                <div class="btn plus-minus bg-grey">+/-</div>
-                <div class="btn percent bg-grey">%</div>
-                <div class="btn division bg-orange">/</div>
+                <div class="d16 ac bg-grey d16-grey">ac</div>
+                <div class="d16 plus-minus bg-grey d16-grey">exp</div>
+                <div class="d16 percent bg-grey d16-grey">%</div>
+                <div class="d16 division bg-orange d16-red">/</div>
 
-                <div class="btn seven">7</div>
-                <div class="btn eigth">8</div>
-                <div class="btn nine">9</div>
-                <div class="btn myltiply bg-orange">X</div>
+                <div class="d16 seven">7</div>
+                <div class="d16 eigth">8</div>
+                <div class="d16 nine">9</div>
+                <div class="d16 myltiply bg-orange d16-red">X</div>
 
-                <div class="btn four ">4</div>
-                <div class="btn five ">5</div>
-                <div class="btn six ">6</div>
-                <div class="btn minus bg-orange">-</div>
+                <div class="d16 four ">4</div>
+                <div class="d16 five ">5</div>
+                <div class="d16 six ">6</div>
+                <div class="d16 minus bg-orange d16-red">-</div>
 
-                <div class="btn one ">1</div>
-                <div class="btn two ">2</div>
-                <div class="btn three ">3</div>
-                <div class="btn plus bg-orange">+</div>
+                <div class="d16 one ">1</div>
+                <div class="d16 two ">2</div>
+                <div class="d16 three ">3</div>
+                <div class="d16 plus bg-orange d16-red">+</div>
 
-                <div class="btn zero ">0</div>
-                <div class="btn dot ">.</div>
-                <div class="btn equal bg-orange">=</div>
+                <div class="d16 zero ">0</div>
+                <div class="d16 dot ">.</div>
+                <div class="d16 equal bg-orange d16-red">√</div>
+                <div class="d16 equal bg-orange d16-red">=</div>
+            </div>
+
+            <img style="width: 100%;" src="static/3jmx.png">
+            <div style="display: flex; align-items: center;justify-content: space-around; margin-left: 8%;">
+                <input id="x2" type="number" value="1">
+                <p> x² + </p>
+                <input id="x" type="number" value="0">
+                <p> x + </p>
+                <input id="free" type="number" value="0">
+                <p> = 0 </p>
+                <div style="width: 250px;" class="d16 d16-long" id="solve-equation">решить</div>
+            </div>
+
+            <img style="width: 100%;" src="static/3jmx.png">
+            <div style="display: flex; align-items: center;justify-content: space-around; margin-left: 8%;">
+                <h1>число:</h1>
+                <input id="decimalNumber" type="number" value="0">
+                <h1>в систему счисления:</h1>
+                <select style="font-size: xxx-large;" name="numberSystem" id="s1">
+                    <option value="16">16</option>
+                    <option value="2">2</option>
+                </select>
+                <div style="width: 250px;" id="translation" class="d16 d16-long">перевести</div>
             </div>
         </div>
 
-        <div class="calc-history">
+        <div>
+            <img style="position: fixed; opacity: 45%;" src="static/2-_0003_bat-shape.png">
+            <div class="calc-history"></div>
         </div>
+
     </div>
 
-    <script src="script.js"></script>
+    <script src="scripts/script.js"></script>
+    <script src="scripts/equation.js"></script>
+    <script src="scripts/numberSystems.js"></script>
 </body>
 
 </html>
