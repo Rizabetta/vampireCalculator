@@ -42,7 +42,6 @@ document.querySelector('.buttons').onclick = (event) => {
             // }
             // a = a + 'e' + count;
             while (a.toString().length >= 8)
-
                 a = a.slice(0, -1);
             // a = Math.floor(a / 10);
         }
@@ -52,7 +51,6 @@ document.querySelector('.buttons').onclick = (event) => {
             // if (b === '' && sign === '') {
             if (a === '0' && key !== '.') a = key; else
                 a += key;
-
             out.textContent = a;
         }
         else if (a !== '' && b !== '' && finish) {
@@ -81,21 +79,21 @@ document.querySelector('.buttons').onclick = (event) => {
 
     if (key === 'exp') {
         a = Math.exp(a);
-        if (a.toString().length > 8) a = a.toPrecision(2);
+        if (a.toString().length > 8) a = a.toPrecision(6);
         if (a == Infinity) a = "значение превышено";
         out.textContent = a;
     }
 
     if (key === '√') {
         a = Math.sqrt(a);
-        if (a.toString().length > 8) a = a.toPrecision(2);
+        if (a.toString().length > 8) a = a.toPrecision(6);
         if (isNaN(a)) a = "ошибка";
         out.textContent = a;
     }
 
     if (key === '%') {
         a = a / 100;
-        if (a.toString().length > 8) a = a.toPrecision(2);
+        if (a.toString().length > 8) a = a.toPrecision(6);
         out.textContent = a;
     }
 
@@ -129,9 +127,10 @@ document.querySelector('.buttons').onclick = (event) => {
                 a = a / b;
                 break;
         }
-        if (isNaN(a) == false && isNaN(b) == false) { a = a.toPrecision(2); b = b.toPrecision(2); };
-        if (a.toString().length > 8) { a = "значение превышено"; };
-
+        if ((isNaN(a) == false) && (isNaN(b) == false)) {
+            if (a.toString().length >= 8) a = a.toPrecision(6);
+            if (b.toString().length >= 8) b = b.toPrecision(6);
+        };
         if (a > 99999999) { a = "значение превышено"; };
         finish = true;
         out.textContent = a;
@@ -140,7 +139,7 @@ document.querySelector('.buttons').onclick = (event) => {
         var p = document.createElement('p');
         p.classList.add('history-operations');
 
-        if ((a == b && b == 0) || (a == b && b == '')) p.innerHTML = c + '=' + a; else
+        if ((a == b && b == 0) || (a == b && b == '')) p.innerHTML = a + '=' + a; else
             if (isNaN(b) == false || isNaN(a) == false)
                 p.innerHTML = c + sign + b + '=' + a;
         if (a == c && sign == "" && isNaN(b) == false) p.innerHTML = a + '=' + a;
@@ -149,8 +148,8 @@ document.querySelector('.buttons').onclick = (event) => {
         container.appendChild(p);
         console.log(c, sign, b, '=', a);
 
-        if (isNaN(a) || a == 'значение превышено') a = '0';
-        if (isNaN(b) || a == 'значение превышено') b = '';
+        if (isNaN(a) || (a == 'значение превышено')) a = '0';
+        if (isNaN(b) || (a == 'значение превышено')) b = '';
     }
 
 }
